@@ -24,7 +24,7 @@ jobs:
           APP_DIR: /ci_cd
           PORT: ${{secrets.PORT}}
         run: |
-          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+          ssh-keyscan -H <host> >> ~/.ssh/known_hosts
           ssh $USER@$HOST "
             if [ ! -d $APP_DIR ]; then
               mkdir -p $APP_DIR
