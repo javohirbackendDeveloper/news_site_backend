@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon index",
     "test": "jest",
-    "build": "echo 'Build jarayoni boshlandi...' && npm install && echo 'Build jarayoni tugad"
+    "build": "echo 'Build jarayoni boshlandi...' && echo 'Build jarayoni tugadi.'"
   },
   "author": "",
   "license": "ISC",
