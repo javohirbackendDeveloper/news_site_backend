@@ -36,6 +36,9 @@ const newsSchema = new Schema(
       type: Number,
       default: 0,
     },
+    tag: {
+      type: String,
+    },
   },
   {
     timestamps: true,

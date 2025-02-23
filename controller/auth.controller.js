@@ -15,6 +15,15 @@ const login = async (req, res) => {
     if (!user) {
       return res.json({ message: "This admin not found" });
     }
+    const checkUsername = await authSchema.findOne({ username });
+
+    if (!checkUsername) {
+      return res.json({ message: "This username not found" });
+    }
+
+    if (password !== user.password) {
+      return res.json({ message: "Siz kiritgan parol xato" });
+    }
 
     const payload = { email, role: "admin" };
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
@@ -68,16 +77,8 @@ const logout = async (req, res) => {
       await redis.del(`refresh_token:${decoded.userId}`);
     }
 
-    res.clearCookie("accessToken", {
-      path: "/",
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-    });
-    res.clearCookie("refreshToken", {
-      path: "/",
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-    });
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
 
     res.json({ message: "Logged out successfully" });
   } catch (error) {

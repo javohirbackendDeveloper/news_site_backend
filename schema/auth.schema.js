@@ -4,9 +4,11 @@ const authSchema = new Schema(
   {
     username: {
       type: String,
+      required: true,
     },
     image: {
       type: String,
+      default: "",
     },
     password: {
       type: String,

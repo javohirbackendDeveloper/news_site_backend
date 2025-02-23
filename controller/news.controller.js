@@ -32,15 +32,33 @@ const createNews = async (req, res) => {
 const getRelevantNews = async (req, res) => {
   try {
     const allRelevantNews = await newsSchema.find({ type: "dolzarb" });
+
     const news = allRelevantNews.sort((a, b) => {
-      b.createdAt - a.createdAt;
+      return new Date(b.createdAt) - new Date(a.createdAt);
     });
-    return res.json({ news });
+
+    if (news.length > 5) {
+      let randoms = [];
+
+      while (randoms.length < 5) {
+        let randomIndex = Math.floor(Math.random() * news.length);
+        if (!randoms.includes(randomIndex)) {
+          randoms.push(randomIndex);
+        }
+      }
+
+      let selectedNews = randoms.map((index) => news[index]);
+
+      return res.json({ news: selectedNews });
+    } else {
+      return res.json({ news });
+    }
   } catch (error) {
     console.log(error);
-    res.json(error);
+    res.status(500).json({ error: error.message });
   }
 };
+
 // CALCULATING WATCHED NUMBER
 
 const viewsFunction = async (newId) => {
@@ -59,11 +77,11 @@ const viewsFunction = async (newId) => {
 const getNews = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const perPage = parseInt(req.query.limit) || 2;
+    const perPage = parseInt(req.query.limit) || 10;
 
     const allNews = await newsSchema
       .find()
-      .sort({ createdAt: +1 })
+      .sort({ createdAt: -1 })
       .skip((page - 1) * perPage)
       .limit(perPage);
 
@@ -156,18 +174,20 @@ const getNewsByCategory = async (req, res) => {
 const getMostWatchedNews = async (req, res) => {
   try {
     const allNews = await newsSchema.find();
-    const sortedByWatchedNews = allNews.sort((a, b) => {
+
+    const sortedNews = allNews.sort((a, b) => {
       return b.watched - a.watched;
     });
 
-    const news = sortedByWatchedNews.sort((a, b) => {
-      return parseInt(a.watched) - parseInt(a.watched);
-    });
-
-    return res.json({ news });
+    if (sortedNews.length <= 5) {
+      return res.json({ news: sortedNews });
+    } else {
+      const top5News = sortedNews.slice(0, 5);
+      return res.json({ news: top5News });
+    }
   } catch (error) {
     console.log(error);
-    res.json(error);
+    return res.status(500).json({ error: "Serverda xato yuz berdi." });
   }
 };
 
