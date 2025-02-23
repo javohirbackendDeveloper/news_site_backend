@@ -14,13 +14,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
     credentials: true,
   })
 );
 
-app.get("/hello", (req, res) => {
-  console.log("Hello world");
+app.get("/", (req, res) => {
+  res.json("Hello world");
 });
 // ROUTERS
 
