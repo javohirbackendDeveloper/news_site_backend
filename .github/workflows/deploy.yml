@@ -41,8 +41,6 @@ jobs:
 
             if pm2 list | grep -q 'ci_cd_app'; then
               pm2 restart ci_cd_app
-            else
-              pm2 start dist/main.js --name ci_cd_app
             fi
 
             pm2 save
