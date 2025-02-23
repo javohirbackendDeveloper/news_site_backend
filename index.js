@@ -19,7 +19,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.json("Hello world");
+  res.json("Hello world from 4000 port");
 });
 // ROUTERS
 
