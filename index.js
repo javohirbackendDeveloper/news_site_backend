@@ -18,8 +18,8 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.json("Hello world 4000werwetwer ");
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 // ROUTERS
 
