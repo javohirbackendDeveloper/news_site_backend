@@ -20,7 +20,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.json("Hello world 4000werwetwer ");
+  res.json("Hello world");
 });
 // ROUTERS
 
