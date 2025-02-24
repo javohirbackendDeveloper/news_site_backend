@@ -26,10 +26,10 @@ const login = async (req, res) => {
     }
 
     const payload = { email, role: "admin" };
-    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+    const accessToken = jwt.sign(payload, " process.env.ACCESS_TOKEN_SECRET", {
       expiresIn: "15m",
     });
-    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+    const refreshToken = jwt.sign(payload, "process.env.REFRESH_TOKEN_SECRET", {
       expiresIn: "7m",
     });
 
@@ -45,13 +45,6 @@ const login = async (req, res) => {
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
-    // await redis.set(
-    //   `refresh_token:${user?._id}`,
-    //   refreshToken,
-    //   "EX",
-    //   7 * 24 * 60 * 60 * 1000
-    // );
 
     return res.json({
       user_id: user._id,
@@ -102,7 +95,6 @@ const refreshToken = async (req, res) => {
       return res.status(401).json({ message: "Invalid refresh token" });
     }
 
-    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQwMDU5MTQwLCJleHAiOjE3NDAwNTk1NjB9.yxF1A-mfwtimWTifwhHUGpOt1xdH0RNYpgPaMpMrQmE
     const accessToken = jwt.sign(
       { userId: decoded.userId },
       process.env.ACCESS_TOKEN_SECRET,
