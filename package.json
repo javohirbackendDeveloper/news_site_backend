@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon index",
     "test": "jest",
-    "build": "echo 'Build jarayoni boshlandi...' && babel bundle.js --out-file dist/bundle.js && echo 'Build jarayoni tugadi.'"
+    "build": "echo 'Build jarayoni boshlandi...' && babel index.js --out-file dist/bundle.js && echo 'Build jarayoni tugadi.'"
   },
   "author": "",
   "license": "ISC",
