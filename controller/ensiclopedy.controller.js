@@ -3,6 +3,7 @@ const ensiclopedySchema = require("../schema/ensiclopedy.schema");
 const createEnsiclopedy = async (req, res) => {
   try {
     const { title, description } = req.body;
+    console.log({ title, description });
 
     const findExistOne = await ensiclopedySchema.findOne({ title });
     if (findExistOne) {
@@ -12,7 +13,7 @@ const createEnsiclopedy = async (req, res) => {
       });
     }
 
-    const ensic = await ensiclopedySchema.create({ ...req.body });
+    const ensic = await ensiclopedySchema.create({ title, description });
 
     req.user.user_ensiclopedies.push(ensic._id);
     await req.user.save();
@@ -83,21 +84,24 @@ const getRandomEnsiclopedies = async (req, res) => {
       b.createdAt - a.createdAt;
     });
 
-    let randomNumbers = [];
-    const limit = Math.ceil(sortedEnsic.length / 5);
-
-    while (randomNumbers.length < limit) {
-      const randomNum = Math.floor(Math.random() * sortedEnsic.length);
-
-      if (!randomNumbers.includes(randomNum)) {
-        randomNumbers.push(randomNum);
-      }
-    }
-
     let ensiclopediy = [];
+    const limit = 10;
+    if (sortedEnsic.length > limit) {
+      let randomNumbers = [];
 
-    for (let i = 0; i < randomNumbers.length; i++) {
-      ensiclopediy.push(sortedEnsic[randomNumbers[i]]);
+      while (randomNumbers.length < limit) {
+        const randomNum = Math.floor(Math.random() * sortedEnsic.length);
+
+        if (!randomNumbers.includes(randomNum)) {
+          randomNumbers.push(randomNum);
+        }
+      }
+
+      for (let i = 0; i < randomNumbers.length; i++) {
+        ensiclopediy.push(sortedEnsic[randomNumbers[i]]);
+      }
+    } else {
+      ensiclopediy = sortedEnsic;
     }
 
     res.json({ ensiclopediy });

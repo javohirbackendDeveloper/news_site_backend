@@ -9,6 +9,7 @@ const {
   getOneNews,
   searchNews,
   getRelevantNews,
+  getRelatedNews,
 } = require("../controller/news.controller");
 const protectRoute = require("../middleware/auth.middleware");
 
@@ -23,5 +24,6 @@ newsRouter.get("/getMostWatchedNews", getMostWatchedNews);
 newsRouter.get("/getOneNew/:newsId", getOneNews);
 newsRouter.get("/searchNews", searchNews);
 newsRouter.get("/getRelevantNews", getRelevantNews);
+newsRouter.get("/getRelatedNews/:category", getRelatedNews);
 
 module.exports = newsRouter;

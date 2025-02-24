@@ -169,6 +169,23 @@ const getNewsByCategory = async (req, res) => {
   }
 };
 
+// GET NEWS THAT ARE  RELATED TO SUBJECT
+
+const getRelatedNews = async (req, res) => {
+  try {
+    const { category } = req.params;
+    const allNews = await newsSchema.find({ category });
+    const sortedNews = allNews.sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    const news = sortedNews.slice(0, 4);
+
+    return res.json({ news });
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+};
 // GET THE MOST WATCHED NEWS
 
 const getMostWatchedNews = async (req, res) => {
@@ -236,4 +253,5 @@ module.exports = {
   getOneNews,
   searchNews,
   getRelevantNews,
+  getRelatedNews,
 };

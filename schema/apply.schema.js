@@ -22,6 +22,9 @@ const applySchema = new Schema(
       },
       default: "taklif",
     },
+    message: {
+      type: String,
+    },
   },
   {
     timestamps: true,

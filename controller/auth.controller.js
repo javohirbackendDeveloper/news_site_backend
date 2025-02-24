@@ -134,4 +134,33 @@ const checkAuth = async (req, res) => {
   }
 };
 
-module.exports = { login, logout, refreshToken, checkAuth, register };
+const updateProfile = async (req, res) => {
+  try {
+    const { password } = req.params;
+    const { ...data } = req.body;
+    const currentUser = req.user;
+
+    if (currentUser.password !== password) {
+      return res.json({ message: "Siz noto'g'ri parol kiritdingiz" });
+    }
+
+    const updatedProfile = await authSchema.findOneAndUpdate(
+      { _id: currentUser._id },
+      data
+    );
+
+    return res.json({ updatedProfile });
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+};
+
+module.exports = {
+  login,
+  logout,
+  refreshToken,
+  checkAuth,
+  register,
+  updateProfile,
+};
