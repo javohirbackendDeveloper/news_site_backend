@@ -7,7 +7,7 @@ const newsRouter = require("./router/news.routes");
 const ensiclopedyRouter = require("./router/ensiclopedy.routes");
 const socialRouter = require("./router/social.routes");
 const applyRouter = require("./router/apply.routes");
-
+require("dotenv").config();
 const app = express();
 
 app.use(express.json());

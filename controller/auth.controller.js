@@ -26,10 +26,10 @@ const login = async (req, res) => {
     }
 
     const payload = { email, role: "admin" };
-    const accessToken = jwt.sign(payload, " process.env.ACCESS_TOKEN_SECRET", {
+    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "15m",
     });
-    const refreshToken = jwt.sign(payload, "process.env.REFRESH_TOKEN_SECRET", {
+    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
       expiresIn: "7m",
     });
 
