@@ -65,7 +65,7 @@ const logout = async (req, res) => {
     if (refreshToken) {
       const decoded = jwt.verify(
         refreshToken,
-        process.env.REFRESH_TOKEN_SECRET
+        "process.env.REFRESH_TOKEN_SECRET"
       );
     }
 
@@ -87,7 +87,10 @@ const refreshToken = async (req, res) => {
       return res.status(401).json({ message: "No refresh token provided" });
     }
 
-    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const decoded = jwt.verify(
+      refreshToken,
+      "process.env.REFRESH_TOKEN_SECRET"
+    );
 
     console.log(storedToken);
 
