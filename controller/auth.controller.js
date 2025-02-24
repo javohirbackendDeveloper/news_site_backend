@@ -3,6 +3,7 @@ const redis = require("../libraries/redis");
 const authSchema = require("../schema/auth.schema");
 require("dotenv").config();
 
+// THIS IS ONLY FOR TESTING
 const register = async (req, res) => {
   await authSchema.create({ ...req.body });
 };
@@ -46,12 +47,12 @@ const login = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    await redis.set(
-      `refresh_token:${user?._id}`,
-      refreshToken,
-      "EX",
-      7 * 24 * 60 * 60 * 1000
-    );
+    // await redis.set(
+    //   `refresh_token:${user?._id}`,
+    //   refreshToken,
+    //   "EX",
+    //   7 * 24 * 60 * 60 * 1000
+    // );
 
     return res.json({
       user_id: user._id,
