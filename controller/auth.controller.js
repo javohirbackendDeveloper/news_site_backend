@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-// const redis = require("../libraries/redis");
 const authSchema = require("../schema/auth.schema");
 require("dotenv").config();
 
@@ -75,7 +74,6 @@ const logout = async (req, res) => {
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET
       );
-      await redis.del(`refresh_token:${decoded.userId}`);
     }
 
     res.clearCookie("accessToken");
@@ -97,7 +95,6 @@ const refreshToken = async (req, res) => {
     }
 
     const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-    const storedToken = await redis.get(`refresh_token:${decoded.userId}`);
 
     console.log(storedToken);
 
