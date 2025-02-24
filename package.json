@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon index",
     "test": "jest",
-    "build": "echo 'Build jarayoni boshlandi...' && babel index.js --out-file dist/bundle.js && echo 'Build jarayoni tugadi.'"
+    "start": "node index.js",
+    "build": "echo 'Build jarayoni boshlandi...' && mkdir -p dist && cp -r *.js routes controller schema dist/ && echo 'Build jarayoni tugadi.'"
   },
   "author": "",
   "license": "ISC",
