@@ -25,7 +25,7 @@ jobs:
           PORT: ${{secrets.PORT}}
         run: |
           ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
-          ssh -i ~/.ssh/id_rsa $USER@$HOST "
+          ssh $USER@$HOST "
             if [ ! -d $APP_DIR ]; then
               mkdir -p $APP_DIR
               git clone https://github.com/javohirbackendDeveloper/news_site_backend.git $APP_DIR
@@ -41,6 +41,8 @@ jobs:
 
             if pm2 list | grep -q 'ci_cd_app'; then
               pm2 restart ci_cd_app
+            else
+             pm2 start index.js --name ci_cd_app
             fi
 
             pm2 save
