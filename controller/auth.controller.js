@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const redis = require("../libraries/redis");
+// const redis = require("../libraries/redis");
 const authSchema = require("../schema/auth.schema");
 require("dotenv").config();
 
