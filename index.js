@@ -8,7 +8,11 @@ const ensiclopedyRouter = require("./router/ensiclopedy.routes");
 const socialRouter = require("./router/social.routes");
 const applyRouter = require("./router/apply.routes");
 require("dotenv").config();
+const { swaggerSpec, swaggerUi } = require("./swagger");
+
 const app = express();
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(express.json());
 app.use(cookieParser());
