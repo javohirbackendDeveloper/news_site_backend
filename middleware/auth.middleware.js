@@ -11,7 +11,7 @@ const protectRoute = async (req, res, next) => {
       });
     }
 
-    const decoded = jwt.verify(token, "process.env.ACCESS_TOKEN_SECRET");
+    const decoded = jwt.verify(token, "ACCESS_TOKEN_SECRET");
 
     if (!decoded) {
       return res.json({ message: "Token is invalid" });
