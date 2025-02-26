@@ -26,11 +26,11 @@ const login = async (req, res) => {
     }
 
     const payload = { email, role: "admin" };
-    const accessToken = jwt.sign(payload, "process.env.ACCESS_TOKEN_SECRET", {
+    const accessToken = jwt.sign(payload, "ACCESS_TOKEN_SECRET", {
       expiresIn: "15m",
     });
-    const refreshToken = jwt.sign(payload, "process.env.REFRESH_TOKEN_SECRET", {
-      expiresIn: "7m",
+    const refreshToken = jwt.sign(payload, "REFRESH_TOKEN_SECRET", {
+      expiresIn: "7d",
     });
 
     res.cookie("accessToken", accessToken, {
@@ -63,10 +63,7 @@ const logout = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
 
     if (refreshToken) {
-      const decoded = jwt.verify(
-        refreshToken,
-        "process.env.REFRESH_TOKEN_SECRET"
-      );
+      const decoded = jwt.verify(refreshToken, "REFRESH_TOKEN_SECRET");
     }
 
     res.clearCookie("accessToken");
@@ -87,20 +84,11 @@ const refreshToken = async (req, res) => {
       return res.status(401).json({ message: "No refresh token provided" });
     }
 
-    const decoded = jwt.verify(
-      refreshToken,
-      "process.env.REFRESH_TOKEN_SECRET"
-    );
-
-    console.log(storedToken);
-
-    if (storedToken !== refreshToken) {
-      return res.status(401).json({ message: "Invalid refresh token" });
-    }
+    const decoded = jwt.verify(refreshToken, "REFRESH_TOKEN_SECRET");
 
     const accessToken = jwt.sign(
       { userId: decoded.userId },
-      "process.env.ACCESS_TOKEN_SECRET",
+      "ACCESS_TOKEN_SECRET",
       { expiresIn: "15m" }
     );
 
