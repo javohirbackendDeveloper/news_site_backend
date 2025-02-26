@@ -62,42 +62,42 @@ const authRouter = Router();
  */
 authRouter.post("/login", login);
 
-/**
- * @swagger
- * /auth/register:
- *   post:
- *     summary: Register a new user
- *     tags: [Auth]
- *     description: Register a new user in the system.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - email
- *               - username
- *               - password
- *             properties:
- *               email:
- *                 type: string
- *                 example: user@example.com
- *               username:
- *                 type: string
- *                 example: user123
- *               password:
- *                 type: string
- *                 example: password123
- *     responses:
- *       201:
- *         description: User successfully registered.
- *       400:
- *         description: Invalid input.
- *       500:
- *         description: Server error.
- */
-authRouter.post("/register", register);
+// /**
+//  * @swagger
+//  * /auth/register:
+//  *   post:
+//  *     summary: Register a new user
+//  *     tags: [Auth]
+//  *     description: Register a new user in the system.
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             required:
+//  *               - email
+//  *               - username
+//  *               - password
+//  *             properties:
+//  *               email:
+//  *                 type: string
+//  *                 example: user@example.com
+//  *               username:
+//  *                 type: string
+//  *                 example: user123
+//  *               password:
+//  *                 type: string
+//  *                 example: password123
+//  *     responses:
+//  *       201:
+//  *         description: User successfully registered.
+//  *       400:
+//  *         description: Invalid input.
+//  *       500:
+//  *         description: Server error.
+//  */
+// authRouter.post("/register", register);
 
 /**
  * @swagger
